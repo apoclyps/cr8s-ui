@@ -8,7 +8,7 @@ use crate::Route;
 use crate::api::user::{api_login, api_me, LoginResponse, MeResponse};
 use crate::components::alert::Alert;
 use crate::components::input::Input;
-use crate::contexts::{CurrentUserContext, CurrentUserActions, CurrentUserDispatchActions};
+use crate::contexts::{CurrentUserActions, CurrentUserContext, CurrentUserDispatchActions};
 
 async fn login(
     username: String,
@@ -22,7 +22,8 @@ async fn login(
 #[function_component(LoginForm)]
 pub fn login_form() -> Html {
     let navigator = use_navigator();
-    let current_user_ctx = use_context::<CurrentUserContext>().expect("Current user context is missing");
+    let current_user_ctx =
+        use_context::<CurrentUserContext>().expect("Current user context is missing");
 
     let username_handle = use_state(String::default);
     let username = (*username_handle).clone();

@@ -7,4 +7,6 @@ edition = "2021"
 
 [dependencies]
 
+gloo-console = "0.3"
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
 yew = { version = "0.20.0", features = ["csr"] }

@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
-mod pages;
 mod components;
+mod pages;
 
 #[function_component(App)]
 fn app() -> Html {

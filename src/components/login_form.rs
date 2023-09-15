@@ -8,6 +8,7 @@ use crate::Route;
 use crate::api::user::{api_login, api_me, LoginResponse, MeResponse};
 use crate::components::alert::Alert;
 use crate::components::input::Input;
+use crate::contexts::{CurrentUserContext, CurrentUserActions, CurrentUserDispatchActions};
 
 async fn login(
     username: String,
@@ -21,6 +22,7 @@ async fn login(
 #[function_component(LoginForm)]
 pub fn login_form() -> Html {
     let navigator = use_navigator();
+    let current_user_ctx = use_context::<CurrentUserContext>().expect("Current user context is missing");
 
     let username_handle = use_state(String::default);
     let username = (*username_handle).clone();
@@ -52,11 +54,17 @@ pub fn login_form() -> Html {
         let cloned_password = cloned_password.clone();
         let cloned_error_handle = error_message_handle.clone();
         let cloned_navigator = navigator.clone();
+        let cloned_user_ctx = current_user_ctx.clone();
 
         spawn_local(async move {
             match login(cloned_username.clone(), cloned_password.clone()).await {
                 Ok(responses) => {
-                    log!(responses.1.username);
+                    cloned_user_ctx.dispatch(CurrentUserDispatchActions {
+                        action_type: CurrentUserActions::LoginSuccess,
+                        login_response: Some(responses.0),
+                        me_response: Some(responses.1),
+                    });
+
                     if let Some(nav) = cloned_navigator {
                         nav.push(&Route::Home);
                     }

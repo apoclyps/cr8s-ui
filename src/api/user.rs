@@ -1,5 +1,5 @@
-use gloo_net::Error;
 use gloo_net::http::Request;
+use gloo_net::Error;
 use serde::Deserialize;
 use serde_json::json;
 
@@ -29,12 +29,9 @@ pub async fn api_login(username: String, password: String) -> Result<LoginRespon
     response.json::<LoginResponse>().await
 }
 
-pub async fn api_me(username: String, password: String) -> Result<MeResponse, Error> {
-    let response = Request::post(&format!("{}/login", APP_HOST))
-        .json(&json!({
-            "username": username,
-            "password": password
-        }))?
+pub async fn api_me(token: &String) -> Result<MeResponse, Error> {
+    let response = Request::get(&format!("{}/me", APP_HOST))
+        .header("Authorization", &format!("Bearer {}", token))
         .send()
         .await?;
 

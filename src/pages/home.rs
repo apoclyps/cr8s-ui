@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
 use crate::{contexts::CurrentUserContext, Route};
 
@@ -18,9 +19,7 @@ pub fn home() -> Html {
                     </div>
                     <div class="col">
                         <p class="text-center">
-                            {"Welcome user "}{user.username.clone()}<br/>
-                            <small>{"with ID "}{user.id.clone()}</small><br/>
-                            <small>{"created at "}{user.created_at.clone()}</small>
+                            <Header />
                         </p>
                     </div>
                 </div>

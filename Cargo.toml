@@ -14,3 +14,4 @@ serde_json = { version = "1.0" }
 web-sys = { version = "0.3", features = ["HtmlInputElement"] }
 yew = { version = "0.20.0", features = ["csr"] }
 yew-router = {version = "0.17"}
+gloo-storage = { version = "0.3.0"}

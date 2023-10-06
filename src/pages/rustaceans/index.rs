@@ -6,6 +6,8 @@ use crate::components::sidebar::Sidebar;
 
 #[function_component(Rustaceans)]
 pub fn rustaceans() -> Html {
+    let loading = html! { <p>{"Loading ..."}</p> };
+
     html! {
         <div class="container">
             <div class="row">
@@ -14,7 +16,9 @@ pub fn rustaceans() -> Html {
                 </div>
                 <div class="col mt-3">
                     <Header />
-                    <RustaceanList />
+                    <Suspense fallback={loading}>
+                        <RustaceanList />
+                    </Suspense>
                 </div>
             </div>
         </div>

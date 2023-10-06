@@ -14,7 +14,7 @@ pub fn home() -> Html {
         Some(user) => {
             html! {
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm-auto">
                         <Sidebar />
                     </div>
                     <div class="col">
